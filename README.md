@@ -18,4 +18,16 @@ samples, guidance on mobile development, and a full API reference.
 flutter create --platforms web .
 
 
+for angular devs
 Flutter pub get == npm i
+env
+https://stacksecrets.com/flutter/environment-configuration-in-flutter-app
+
+interceptor
+https://saif7995.medium.com/flutter-http-interceptor-for-refresh-token-with-http-interceptor-b45892d646b7
+
+session service
+uow service
+di
+reactive form
+child component

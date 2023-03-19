@@ -5,6 +5,14 @@ import 'components/login/login_view.dart';
 
 void main() {
   setupLocator();
+
+  // const String environment = String.fromEnvironment(
+  //   'ENVIRONMENT',
+  //   defaultValue: Environment.DEV,
+  // );
+
+  // Environment().initConfig(environment);
+
   runApp(const MyApp());
 }
 

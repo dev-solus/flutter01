@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "f": "flutter run -d chrome",
+    "f": "flutter run -d chrome --dart-define=ENVIRONMENT=DEV",
     "b": "flutter build web",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
