@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fultter01/components/exemple/MyWidget.dart';
 import 'package:fultter01/locator.dart';
 
 import 'components/login/login_view.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: const LoginView(),
+      home: MyWidget(),
     );
   }
 }
