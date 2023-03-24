@@ -18,7 +18,7 @@ class UserController {
   // UowService uow = inject<UowService>();
   // final dataProvider = Provider.of<UserProvider>(context);
 
-  Stream<User> dataSource = Stream.empty();
+  Stream<dynamic> dataSource = Stream.empty();
   // final dataSource = BehaviorSubject<List<User>>.seeded([]);
 
   UserController() {
@@ -67,6 +67,8 @@ class UserController {
     //   );
     // }
   }
+
+  add() {}
 
   void updatePassword(String password) {
     // model.password = password;

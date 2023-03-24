@@ -12,6 +12,7 @@ class User {
   User({required this.data});
 
   factory User.fromJson(Map<String, dynamic> json) {
+    print(json);
     final data = <String, User>{};
     for (final entry in json.entries) {
       data[entry.key] = User.fromJson(entry.value as Map<String, dynamic>);
