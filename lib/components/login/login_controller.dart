@@ -11,7 +11,6 @@ class LoginController {
   var o = LoginModel();
 
   // di
-  // UowService uow = inject<UowService>();
   UowService uow = UowService();
 
   LoginController() {

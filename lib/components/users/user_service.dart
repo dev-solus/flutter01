@@ -8,11 +8,9 @@ class UserService {
   Stream getAll() {
     final origin = 'http://10.0.2.2';
     final origin2 = 'http://localhost';
-    final future = http.get(Uri.parse('${origin}:5000/api/users/getTest'));
+    final future = http.get(Uri.parse('${origin2}:5000/api/users/getTest'));
 
-    final observable = Stream.fromFuture(future);
-
-    var test = observable
+    return Stream.fromFuture(future)
             .where((r) => r.statusCode == 200)
             .map((r) => r.body)
             .doOnData((r) => {
@@ -22,7 +20,5 @@ class UserService {
             .map((r) => jsonDecode(r))
         // .map((r) => User.fromJson(jsonDecode(r)))
         ;
-
-    return test;
   }
 }

@@ -11,14 +11,16 @@ import 'package:provider/provider.dart';
 
 class UserController {
   FormGroup? myForm;
-  var o = LoginModel();
 
   // di
+  UserService uow = inject<UserService>();
+
   UserService service = UserService();
   // UowService uow = inject<UowService>();
   // final dataProvider = Provider.of<UserProvider>(context);
 
   Stream<dynamic> dataSource = Stream.empty();
+  // Stream<dynamic> dataSource2 = Stream.empty();
   // final dataSource = BehaviorSubject<List<User>>.seeded([]);
 
   UserController() {
@@ -26,7 +28,7 @@ class UserController {
   }
 
   init() {
-    dataSource = service.getAll();
+    dataSource = uow.getAll();
   }
 
   void updateEmail(String email) {
