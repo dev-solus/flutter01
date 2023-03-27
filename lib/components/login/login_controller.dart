@@ -3,7 +3,7 @@ import 'package:fultter01/components/login/login_model.dart';
 import 'package:fultter01/locator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
-import '../../uow_service.dart';
+import '../../core/services/uow_service.dart';
 import 'login_service.dart';
 
 class LoginController {

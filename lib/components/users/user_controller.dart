@@ -4,18 +4,17 @@ import 'package:fultter01/locator.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../uow_service.dart';
+import '../../core/services/uow_service.dart';
 import 'user_model.dart';
-import 'user_service.dart';
+import '../../core/services/user_service.dart';
 import 'package:provider/provider.dart';
 
 class UserController {
   FormGroup? myForm;
 
   // di
-  UserService uow = inject<UserService>();
+  UowService uow = inject<UowService>();
 
-  UserService service = UserService();
   // UowService uow = inject<UowService>();
   // final dataProvider = Provider.of<UserProvider>(context);
 
@@ -28,7 +27,7 @@ class UserController {
   }
 
   init() {
-    dataSource = uow.getAll();
+    dataSource = uow.users.getAll();
   }
 
   void updateEmail(String email) {
