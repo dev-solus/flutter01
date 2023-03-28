@@ -5,4 +5,6 @@ class UowService {
   // final LoginService login = inject<LoginService>();
   final login = LoginService();
   final users = UserService();
+
+  UowService();
 }

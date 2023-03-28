@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:json_object_mapper/json_object_mapper.dart';
 
 class HelloWorld extends StatelessWidget {
   HelloWorld({super.key});
@@ -35,7 +38,7 @@ class HelloWorld extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _this.add();
+          // _this.add();
         },
         child: Icon(Icons.add),
       ),
@@ -51,17 +54,78 @@ class HelloWorldController {
   final action = BehaviorSubject<List<dynamic>>.seeded([]);
   Stream<dynamic> dataSource = Stream.empty();
 
+  final userServ = UserServ();
+
   HelloWorldController() {
     init();
   }
 
   init() {
-    for (var i = 0; i < 4; i++) {
-      print('hello $i');
-    }
+    var list = userServ.getAll();
 
-    // dataSource.
+    var f = list.first;
+    var s = list.last;
+  }
+}
+
+class UserTest {
+  int id = 0;
+  String name = '';
+
+  UserTest({required this.id, required this.name});
+
+  // factory UserTest.fromJson(Map<String, dynamic> json) {
+  //   return UserTest(name: json['name'], id: json['id']);
+  // }
+
+  // UserTest.fromJson(String json) {
+  //   initializeFromJson(json);
+  // }
+}
+
+class UserServ extends SuperServ<UserTest> {
+  // @override
+  // getAll() {
+  //   String responseBody = """ [
+  //     { "id": 1, "name": "me" },
+  //     { "id": 2, "name": "you" }
+  //   ]""";
+
+  //   List<dynamic> map = jsonDecode(responseBody);
+
+  //   var r = map.map((e) {
+  //     var s = UserTest.fromJson(e);
+
+  //     return s;
+  //   });
+
+  //   var ss = r.first.id;
+  //   var sss = r.first.id;
+  // }
+}
+
+class SuperServ<T> {
+  getAll() {
+    String responseBody = """ [
+      { "id": 1, "name": "me" },
+      { "id": 2, "name": "you" }
+    ]""";
+
+    List<dynamic> map = jsonDecode(responseBody);
+
+    var mapp = Map.from(jsonDecode(responseBody));
+
+    var r = map.map((e) {
+      var s = fromJsonDynamic<T>(e);
+
+      return s;
+    }).toList();
+
+    return r;
   }
 
-  add() {}
+  T fromJsonDynamic<T>(Map<String, dynamic> json) {
+    final constructor = T as dynamic Function(Map<String, dynamic>)?;
+    return constructor != null ? constructor(json) : null;
+  }
 }
