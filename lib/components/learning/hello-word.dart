@@ -74,9 +74,9 @@ class UserTest {
 
   UserTest({required this.id, required this.name});
 
-  // factory UserTest.fromJson(Map<String, dynamic> json) {
-  //   return UserTest(name: json['name'], id: json['id']);
-  // }
+  factory UserTest.fromJson(Map<String, dynamic> json) {
+    return UserTest(name: json['name'], id: json['id']);
+  }
 
   // UserTest.fromJson(String json) {
   //   initializeFromJson(json);
@@ -84,24 +84,20 @@ class UserTest {
 }
 
 class UserServ extends SuperServ<UserTest> {
-  // @override
-  // getAll() {
-  //   String responseBody = """ [
-  //     { "id": 1, "name": "me" },
-  //     { "id": 2, "name": "you" }
-  //   ]""";
+  @override
+  getAll() {
+    String responseBody = """ [
+      { "id": 1, "name": "me" },
+      { "id": 2, "name": "you" }
+    ]""";
 
-  //   List<dynamic> map = jsonDecode(responseBody);
+    var list = (jsonDecode(responseBody) as List<dynamic>)
+        .map((e) => UserTest.fromJson(Map<String, dynamic>.from(e)))
+        .toList();
 
-  //   var r = map.map((e) {
-  //     var s = UserTest.fromJson(e);
-
-  //     return s;
-  //   });
-
-  //   var ss = r.first.id;
-  //   var sss = r.first.id;
-  // }
+    var ss = list.first.id;
+    var sss = list.first.id;
+  }
 }
 
 class SuperServ<T> {
@@ -111,9 +107,9 @@ class SuperServ<T> {
       { "id": 2, "name": "you" }
     ]""";
 
-    List<dynamic> map = jsonDecode(responseBody);
-
-    var mapp = Map.from(jsonDecode(responseBody));
+    var map = (jsonDecode(responseBody) as List<dynamic>).map((e) {
+      return Map<String, dynamic>.from(e);
+    }).toList();
 
     var r = map.map((e) {
       var s = fromJsonDynamic<T>(e);
@@ -128,4 +124,8 @@ class SuperServ<T> {
     final constructor = T as dynamic Function(Map<String, dynamic>)?;
     return constructor != null ? constructor(json) : null;
   }
+}
+
+abstract class MyInterface {
+  void doSomething();
 }
