@@ -19,18 +19,20 @@ class HelloWorld extends StatelessWidget {
         stream: _this.dataSource,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return ListView.separated(
-              separatorBuilder: (context, index) =>
-                  Divider(color: Colors.black),
-              itemCount: snapshot.data.length,
-              itemBuilder: (BuildContext ctx, int index) {
-                final element = snapshot.data[index];
-                return ListTile(
-                  title: Text("${element["email"]}"),
-                  subtitle: Text("${element["phone"]}"),
-                );
-              },
-            );
+            var s = snapshot.data;
+            return Text(s!.name);
+            // return ListView.separated(
+            //   separatorBuilder: (context, index) =>
+            //       Divider(color: Colors.black),
+            //   itemCount: snapshot.data.length,
+            //   itemBuilder: (BuildContext ctx, int index) {
+            //     final element = snapshot.data[index];
+            //     return ListTile(
+            //       title: Text("${element["email"]}"),
+            //       subtitle: Text("${element["phone"]}"),
+            //     );
+            //   },
+            // );
           } else {
             return CircularProgressIndicator();
           }
@@ -51,10 +53,12 @@ class HelloWorldController {
   // final dataProvider = Provider.of<UserProvider>(context);
 
   // Stream<dynamic> dataSource2 = Stream.empty();
+  static final userServ = UserServ();
   final action = BehaviorSubject<List<dynamic>>.seeded([]);
-  Stream<dynamic> dataSource = Stream.empty();
-
-  final userServ = UserServ();
+  final dataSource = userServ.getAll();
+  // .doOnData((e) {
+  //   var s = e;
+  // });
 
   HelloWorldController() {
     init();
@@ -84,46 +88,45 @@ class UserTest {
 }
 
 class UserServ extends SuperServ<UserTest> {
-  @override
+  // @override
   getAll() {
     String responseBody = """ [
       { "id": 1, "name": "me" },
       { "id": 2, "name": "you" }
     ]""";
 
-    var list = (jsonDecode(responseBody) as List<dynamic>)
+    var r = (jsonDecode(responseBody) as List<dynamic>)
         .map((e) => UserTest.fromJson(Map<String, dynamic>.from(e)))
         .toList();
 
-    var ss = list.first.id;
-    var sss = list.first.id;
+    return Stream.fromIterable(r);
   }
 }
 
 class SuperServ<T> {
-  getAll() {
-    String responseBody = """ [
-      { "id": 1, "name": "me" },
-      { "id": 2, "name": "you" }
-    ]""";
+  // Iterable<T> getAll() {
+  //   String responseBody = """ [
+  //     { "id": 1, "name": "me" },
+  //     { "id": 2, "name": "you" }
+  //   ]""";
 
-    var map = (jsonDecode(responseBody) as List<dynamic>).map((e) {
-      return Map<String, dynamic>.from(e);
-    }).toList();
+  //   var map = (jsonDecode(responseBody) as List<dynamic>).map((e) {
+  //     return Map<String, dynamic>.from(e);
+  //   }).toList();
 
-    var r = map.map((e) {
-      var s = fromJsonDynamic<T>(e);
+  //   var r = map.map((e) {
+  //     var s = fromJsonDynamic<T>(e);
 
-      return s;
-    }).toList();
+  //     return s;
+  //   });
 
-    return r;
-  }
+  //   return Stream.fromIterable(r);
+  // }
 
-  T fromJsonDynamic<T>(Map<String, dynamic> json) {
-    final constructor = T as dynamic Function(Map<String, dynamic>)?;
-    return constructor != null ? constructor(json) : null;
-  }
+  // T fromJsonDynamic<T>(Map<String, dynamic> json) {
+  //   final constructor = T as dynamic Function(Map<String, dynamic>)?;
+  //   return constructor != null ? constructor(json) : null;
+  // }
 }
 
 abstract class MyInterface {
