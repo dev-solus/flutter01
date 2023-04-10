@@ -6,12 +6,13 @@ import 'config_subject_model.dart';
 
 class ConfigSubjectController {
   final UowService uow = inject<UowService>();
+  // final UowService uow = UowService();
   // final dataProvider = Provider.of<UserProvider>(context);
 
   // Stream<dynamic> dataSource2 = Stream.empty();
-  final action = BehaviorSubject<List<dynamic>>.seeded([]);
+  final action = BehaviorSubject<bool>.seeded(true);
 
-  Stream<List<ConfigSubject>> dataSource = Stream.empty();
+  Stream<List<ConfigSubject>> dataSource = const Stream.empty();
   // .doOnData((e) {
   //   var s = e;
   // });
@@ -21,18 +22,24 @@ class ConfigSubjectController {
   }
 
   init() {
-    dataSource = Stream.fromFuture(uow.configSubject.fetchAllUsers())
-        // .where((r) => r.statusCode == 200)
-        // .map((r) => r.body)
-        // // .doOnData((r) => {
-        // //       print(r),
-        // //       print(json.decode(r)),
-        // //     })
-        // .doOnData((r) => {
-        //       print('>>>>>>>>>>>>>>>>>>'),
-        //       print(User.fromJson(jsonDecode(r)).name)
-        //     })
-        // .map((r) => jsonDecode(r))
-        ;
+    dataSource = Rx.merge([action]).switchMap(
+        (e) => uow.configSubject.fetchAllUsers().asStream().map((list) {
+              // list.addAll(list);
+              return list;
+            }));
+    // dataSource = uow.configSubject
+    //         .fetchAllUsers()
+    //         .asStream()
+    //         // .where((r) => r.statusCode == 200)
+    //         // .map((r) => r.body)
+    //         // // .doOnData((r) => {
+    //         // //       print(r),
+    //         // //       print(json.decode(r)),
+    //         // //     })
+    //         .doOnData((r) {
+    //   print(r.length);
+    // })
+    // .map((r) => jsonDecode(r))
+    ;
   }
 }

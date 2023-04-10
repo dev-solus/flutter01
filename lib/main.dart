@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fultter01/components/exemple/MyWidget.dart';
 import 'package:fultter01/locator.dart';
 
+import 'components/config_subject/config_subject_screen.dart';
 import 'components/learning/hello-word.dart';
 import 'components/login/login_view.dart';
 import 'components/users/user_screen.dart';
@@ -46,7 +47,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home: HelloWorld(),
+      home: ConfigSubjectScreen(),
     );
   }
 }

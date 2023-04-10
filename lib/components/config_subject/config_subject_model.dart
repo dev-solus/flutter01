@@ -1,12 +1,12 @@
 class ConfigSubject {
   int id;
   String titre;
-  String description;
-  String imagePath;
-  String videoPath;
-  DateTime creationDate;
+  String? description;
+  String? imagePath;
+  String? videoPath;
+  // DateTime creationDate;
   int createdById;
-  DateTime updatedDate;
+  // DateTime updatedDate;
   int updatedById;
   int classId;
 
@@ -16,9 +16,9 @@ class ConfigSubject {
     required this.description,
     required this.imagePath,
     required this.videoPath,
-    required this.creationDate,
+    // required this.creationDate,
     required this.createdById,
-    required this.updatedDate,
+    // required this.updatedDate,
     required this.updatedById,
     required this.classId,
   });
@@ -30,9 +30,9 @@ class ConfigSubject {
       description: json['description'],
       imagePath: json['imagePath'],
       videoPath: json['videoPath'],
-      creationDate: json['creationDate'],
+      // creationDate: json['creationDate'],
       createdById: json['createdById'],
-      updatedDate: json['updatedDate'],
+      // updatedDate: json['updatedDate'],
       updatedById: json['updatedById'],
       classId: json['classId'],
     );

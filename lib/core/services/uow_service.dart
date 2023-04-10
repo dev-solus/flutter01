@@ -8,5 +8,16 @@ class UowService {
   final users = UserService();
   final configSubject = ConfigSubjectService();
 
+  // utils
+  final url = 'http://51.210.106.202:5011';
+
   UowService();
+
+  displayImage(String imageUrl) {
+    if (imageUrl.startsWith('http')) {
+      return imageUrl;
+    }
+
+    return '$url/$imageUrl';
+  }
 }
